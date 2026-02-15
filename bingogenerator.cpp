@@ -1,6 +1,7 @@
 #include "bingogenerator.h"
 
 #include <algorithm>
+#include <QSet>
 
 BingoGenerator::BingoGenerator( QObject* parent )
     : QObject( parent )
@@ -10,107 +11,112 @@ BingoGenerator::BingoGenerator( QObject* parent )
     std::random_device rd;
     m_rng = std::mt19937( rd() );
 
-    m_allNames.push_back( "Aliança" );
-    m_allNames.push_back( "Paixão" );
-    m_allNames.push_back( "Cumplicidade" );
-    m_allNames.push_back( "Parceria" );
-    m_allNames.push_back( "Respeito" );
-    m_allNames.push_back( "Doação" );
-    m_allNames.push_back( "Fidelidade" );
-    m_allNames.push_back( "Companheirismo" );
-    m_allNames.push_back( "Harmonia" );
-    m_allNames.push_back( "Romance" );
-    m_allNames.push_back( "Ternura" );
-    m_allNames.push_back( "Dedicação" );
-    m_allNames.push_back( "﻿﻿﻿﻿Brilho" );
-    m_allNames.push_back( "﻿﻿﻿﻿Luz" );
-    m_allNames.push_back( "﻿﻿﻿﻿Aurora" );
-    m_allNames.push_back( "﻿﻿﻿﻿Esplendor" );
-    m_allNames.push_back( "﻿﻿﻿﻿Aurora" );
-    m_allNames.push_back( "﻿﻿﻿﻿Fulgor" );
-    m_allNames.push_back( "﻿﻿﻿﻿Resplendor" );
-    m_allNames.push_back( "﻿﻿﻿﻿Claridade" );
-    m_allNames.push_back( "﻿﻿﻿﻿Aurora" );
-    m_allNames.push_back( "﻿﻿﻿﻿Cintilação" );
-    m_allNames.push_back( "﻿﻿﻿﻿Brilhante" );
-    m_allNames.push_back( "﻿﻿﻿﻿Aurífero" );
-    m_allNames.push_back( "﻿﻿﻿﻿Terra" );
-    m_allNames.push_back( "﻿﻿﻿﻿Semente" );
-    m_allNames.push_back( "﻿﻿﻿﻿Colheita" );
-    m_allNames.push_back( "﻿﻿﻿﻿Plantio" );
-    m_allNames.push_back( "﻿﻿﻿﻿Roça" );
-    m_allNames.push_back( "﻿﻿﻿﻿Arado" );
-    m_allNames.push_back( "﻿﻿﻿﻿Enxada" );
-    m_allNames.push_back( "﻿﻿﻿﻿Cercado" );
-    m_allNames.push_back( "﻿﻿﻿﻿Celeiro" );
-    m_allNames.push_back( "﻿﻿﻿﻿Lavoura" );
-    m_allNames.push_back( "﻿﻿﻿﻿Seara" );
-    m_allNames.push_back( "﻿﻿﻿﻿Sulco" );
-    m_allNames.push_back( "﻿﻿﻿﻿Raiz" );
-    m_allNames.push_back( "﻿﻿﻿﻿Fruto" );
-    m_allNames.push_back( "﻿﻿﻿﻿Geração" );
-    m_allNames.push_back( "﻿﻿﻿﻿Herança" );
-    m_allNames.push_back( "﻿﻿﻿﻿Tradição" );
-    m_allNames.push_back( "﻿﻿﻿﻿Descendência" );
-    m_allNames.push_back( "﻿﻿﻿﻿Linhagem" );
-    m_allNames.push_back( "﻿﻿﻿﻿Parentesco" );
-    m_allNames.push_back( "﻿﻿﻿﻿Genealogia" );
-    m_allNames.push_back( "﻿﻿﻿﻿Prole" );
-    m_allNames.push_back( "﻿﻿﻿﻿Sucessão" );
-    m_allNames.push_back( "﻿﻿﻿﻿Delicadeza" );
-    m_allNames.push_back( "Eternidade" );
-    m_allNames.push_back( "Permanência" );
-    m_allNames.push_back( "Duração" );
-    m_allNames.push_back( "Continuação" );
-    m_allNames.push_back( "Perenidade" );
-    m_allNames.push_back( "Memória" );
-    m_allNames.push_back( "Saudade" );
-    m_allNames.push_back( "Recordação" );
-    m_allNames.push_back( "Trajetória" );
-    m_allNames.push_back( "Jornada" );
-    m_allNames.push_back( "Caminhada" );
-    m_allNames.push_back( "Amor" );
-    m_allNames.push_back( "Allan" );
-    m_allNames.push_back( "Filhos" );
-    m_allNames.push_back( "Lua de Mel" );
-    m_allNames.push_back( "Myllene" );
-    m_allNames.push_back( "Aliança" );
-    m_allNames.push_back( "Bençãos" );
-    m_allNames.push_back( "Futuro" );
-    m_allNames.push_back( "Netos" );
-    m_allNames.push_back( "Romance" );
-    m_allNames.push_back( "Adélia" );
-    m_allNames.push_back( "Casa" );
-    m_allNames.push_back( "Maria de Fátima" );
-    m_allNames.push_back( "Paciência" );
-    m_allNames.push_back( "Adriana" );
-    m_allNames.push_back( "Casamento" );
-    m_allNames.push_back( "Guilherme" );
-    m_allNames.push_back( "Maria Clara" );
-    m_allNames.push_back( "Paulo" );
-    m_allNames.push_back( "Andréia" );
-    m_allNames.push_back( "50 Anos" );
-    m_allNames.push_back( "José Roberto" );
-    m_allNames.push_back( "Maria Alice" );
-    m_allNames.push_back( "Vida" );
-    m_allNames.push_back( "Laço" );
-    m_allNames.push_back( "﻿﻿﻿Farol" );
-    m_allNames.push_back( "﻿﻿﻿Âncora" );
-    m_allNames.push_back( "﻿﻿﻿﻿Horta" );
-    m_allNames.push_back( "﻿﻿﻿﻿Rancho" );
-    m_allNames.push_back( "﻿﻿﻿Aconchego" );
-    m_allNames.push_back( "Família" );
-    m_allNames.push_back( "Legado" );
-    m_allNames.push_back( "Doce" );
-    m_allNames.push_back( "Afeto" );
-    m_allNames.push_back( "Mel" );
-    m_allNames.push_back( "Açúcar" );
-    m_allNames.push_back( "Querência" );
-    m_allNames.push_back( "Carinho" );
-    m_allNames.push_back( "Afago" );
-    m_allNames.push_back( "Cuidado" );
-    m_allNames.push_back( "﻿﻿﻿﻿Fartura" );
-    m_allNames.push_back( "Doçura" );
+    QSet<QString> uniqueSet;
+
+
+    uniqueSet.insert( "Aliança" );
+    uniqueSet.insert( "Paixão" );
+    uniqueSet.insert( "Cumplicidade" );
+    uniqueSet.insert( "Parceria" );
+    uniqueSet.insert( "Respeito" );
+    uniqueSet.insert( "Doação" );
+    uniqueSet.insert( "Fidelidade" );
+    uniqueSet.insert( "Companheirismo" );
+    uniqueSet.insert( "Harmonia" );
+    uniqueSet.insert( "Romance" );
+    uniqueSet.insert( "Ternura" );
+    uniqueSet.insert( "Dedicação" );
+    uniqueSet.insert( "﻿﻿﻿﻿Brilho" );
+    uniqueSet.insert( "﻿﻿﻿﻿Luz" );
+    uniqueSet.insert( "﻿﻿﻿﻿Aurora" );
+    uniqueSet.insert( "﻿﻿﻿﻿Esplendor" );
+    uniqueSet.insert( "﻿﻿﻿﻿Aurora" );
+    uniqueSet.insert( "﻿﻿﻿﻿Fulgor" );
+    uniqueSet.insert( "﻿﻿﻿﻿Resplendor" );
+    uniqueSet.insert( "﻿﻿﻿﻿Claridade" );
+    uniqueSet.insert( "﻿﻿﻿﻿Aurora" );
+    uniqueSet.insert( "﻿﻿﻿﻿Cintilação" );
+    uniqueSet.insert( "﻿﻿﻿﻿Brilhante" );
+    uniqueSet.insert( "﻿﻿﻿﻿Aurífero" );
+    uniqueSet.insert( "﻿﻿﻿﻿Terra" );
+    uniqueSet.insert( "﻿﻿﻿﻿Semente" );
+    uniqueSet.insert( "﻿﻿﻿﻿Colheita" );
+    uniqueSet.insert( "﻿﻿﻿﻿Plantio" );
+    uniqueSet.insert( "﻿﻿﻿﻿Roça" );
+    uniqueSet.insert( "﻿﻿﻿﻿Arado" );
+    uniqueSet.insert( "﻿﻿﻿﻿Enxada" );
+    uniqueSet.insert( "﻿﻿﻿﻿Cercado" );
+    uniqueSet.insert( "﻿﻿﻿﻿Celeiro" );
+    uniqueSet.insert( "﻿﻿﻿﻿Lavoura" );
+    uniqueSet.insert( "﻿﻿﻿﻿Seara" );
+    uniqueSet.insert( "﻿﻿﻿﻿Sulco" );
+    uniqueSet.insert( "﻿﻿﻿﻿Raiz" );
+    uniqueSet.insert( "﻿﻿﻿﻿Fruto" );
+    uniqueSet.insert( "﻿﻿﻿﻿Geração" );
+    uniqueSet.insert( "﻿﻿﻿﻿Herança" );
+    uniqueSet.insert( "﻿﻿﻿﻿Tradição" );
+    uniqueSet.insert( "﻿﻿﻿﻿Descendência" );
+    uniqueSet.insert( "﻿﻿﻿﻿Linhagem" );
+    uniqueSet.insert( "﻿﻿﻿﻿Parentesco" );
+    uniqueSet.insert( "﻿﻿﻿﻿Genealogia" );
+    uniqueSet.insert( "﻿﻿﻿﻿Prole" );
+    uniqueSet.insert( "﻿﻿﻿﻿Sucessão" );
+    uniqueSet.insert( "﻿﻿﻿﻿Delicadeza" );
+    uniqueSet.insert( "Eternidade" );
+    uniqueSet.insert( "Permanência" );
+    uniqueSet.insert( "Duração" );
+    uniqueSet.insert( "Continuação" );
+    uniqueSet.insert( "Perenidade" );
+    uniqueSet.insert( "Memória" );
+    uniqueSet.insert( "Saudade" );
+    uniqueSet.insert( "Recordação" );
+    uniqueSet.insert( "Trajetória" );
+    uniqueSet.insert( "Jornada" );
+    uniqueSet.insert( "Caminhada" );
+    uniqueSet.insert( "Amor" );
+    uniqueSet.insert( "Allan" );
+    uniqueSet.insert( "Filhos" );
+    uniqueSet.insert( "Lua de Mel" );
+    uniqueSet.insert( "Myllene" );
+    uniqueSet.insert( "Lareira" );
+    uniqueSet.insert( "Bençãos" );
+    uniqueSet.insert( "Futuro" );
+    uniqueSet.insert( "Netos" );
+    uniqueSet.insert( "Romance" );
+    uniqueSet.insert( "Adélia" );
+    uniqueSet.insert( "Casa" );
+    uniqueSet.insert( "Maria de Fátima" );
+    uniqueSet.insert( "Paciência" );
+    uniqueSet.insert( "Adriana" );
+    uniqueSet.insert( "Casamento" );
+    uniqueSet.insert( "Guilherme" );
+    uniqueSet.insert( "Maria Clara" );
+    uniqueSet.insert( "Paulo" );
+    uniqueSet.insert( "Andréia" );
+    uniqueSet.insert( "50 Anos" );
+    uniqueSet.insert( "José Roberto" );
+    uniqueSet.insert( "Maria Alice" );
+    uniqueSet.insert( "Vida" );
+    uniqueSet.insert( "Laço" );
+    uniqueSet.insert( "﻿﻿﻿Farol" );
+    uniqueSet.insert( "﻿﻿﻿Âncora" );
+    uniqueSet.insert( "﻿﻿﻿﻿Horta" );
+    uniqueSet.insert( "﻿﻿﻿﻿Rancho" );
+    uniqueSet.insert( "﻿﻿﻿Aconchego" );
+    uniqueSet.insert( "Família" );
+    uniqueSet.insert( "Legado" );
+    uniqueSet.insert( "Doce" );
+    uniqueSet.insert( "Afeto" );
+    uniqueSet.insert( "Mel" );
+    uniqueSet.insert( "Açúcar" );
+    uniqueSet.insert( "Querência" );
+    uniqueSet.insert( "Carinho" );
+    uniqueSet.insert( "Afago" );
+    uniqueSet.insert( "Cuidado" );
+    uniqueSet.insert( "﻿﻿﻿﻿Fartura" );
+    uniqueSet.insert( "Doçura" );
+
+    m_allNames.assign( uniqueSet.cbegin(), uniqueSet.cend() );
 }
 
 void BingoGenerator::startGeneration( int numberOfCards ) {
@@ -123,6 +129,11 @@ void BingoGenerator::prepareNextCard() {
 
     if ( m_currentIndex >= m_targetCount ) {
         emit generationFinished();
+        return;
+    }
+
+    if ( m_allNames.size() < 24 ) {
+        qWarning() << "Impossível gerar cartela. Nomes insuficientes.";
         return;
     }
 

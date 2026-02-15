@@ -1,6 +1,8 @@
 import QtQuick
+
 import QtQuick.Controls.Basic
 import QtQuick.Layouts
+import QtQuick.Dialogs
 
 Window {
   width: 600
@@ -8,12 +10,23 @@ Window {
   visible: true
   title: "Gerador de Bingo"
 
+  FolderDialog {
+    id: folderDialog
+    currentFolder: "."
+    // selectedFolder: viewer.folder
+  }
+
   RowLayout {
     id: controls
     anchors.top: parent.top
     anchors.margins: 12
     anchors.horizontalCenter: parent.horizontalCenter
     z: 10
+
+    Button {
+      text: "Caminho"
+      onClicked: folderDialog.open()
+    }
 
     SpinBox {
       id: spbx
@@ -61,7 +74,7 @@ Window {
           Repeater {
             model: ["B", "O", "D", "A", "S"]
             Rectangle {
-              required property list<string> modelData
+              required property var modelData
 
               Layout.fillWidth: true
               Layout.fillHeight: true
@@ -147,7 +160,7 @@ Window {
     interval: 100 // 100ms para renderizar
     repeat: false
     onTriggered: {
-      let filename = "images/cartela_" + (BingoGenerator.currentCardIndex + 1) + ".png";
+      let filename = folderDialog.selectedFolder + "/cartela_" + (BingoGenerator.currentCardIndex + 1) + ".png";
 
       bingoCard.grabToImage(function (result) {
         if (result.saveToFile(filename)) {
