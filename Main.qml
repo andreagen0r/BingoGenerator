@@ -10,6 +10,57 @@ Window {
   visible: true
   title: "Gerador de Bingo"
 
+  Window {
+    id: allNames
+    visible: true
+    width: 1754
+    height: 1240
+
+    GridLayout {
+      id: print
+      anchors.fill: parent
+      columns: 15
+      rowSpacing: -1
+      columnSpacing: -1
+      uniformCellWidths: true
+      uniformCellHeights: true
+
+      Repeater {
+        model: BingoGenerator.allWords()
+
+        Rectangle {
+          Layout.fillWidth: true
+          Layout.fillHeight: true
+          border.color: "black"
+          border.width: 2
+
+          Text {
+            anchors.fill: parent
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            fontSizeMode: Text.Fit
+            font.pixelSize: 16
+            text: modelData
+          }
+        }
+      }
+    }
+
+    Button {
+      anchors.centerIn: parent
+      text: "Salvar nomes"
+      onClicked: {
+        let filename = "nomes.png";
+
+        print.grabToImage(function (result) {
+          if (result.saveToFile(filename)) {} else {
+            console.error("Falha ao salvar " + filename);
+          }
+        }, Qt.size(3508, 2480)); // Definir resolução de saída maior que a tela
+      }
+    }
+  }
+
   FolderDialog {
     id: folderDialog
     currentFolder: "."
